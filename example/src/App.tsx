@@ -3,12 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { verifyToken, generateSecretKey, encryptData } from 'react-native-jsonwebtoken';
 import { PUBLIC_KEY, TOKEN, data } from './dataSample';
+import type { EncryptionResult, ErrorWithMessage } from '../type';
 
 
 
 const App: React.FC = () => {
   const [result, setResult] = useState<string>();
-  const [encryptionResult, setEncryptionResult] = useState<EncryptionResult>();
+  const [encryptionResult, setEncryptionResult] = useState<EncryptionResult>({
+    key: '',
+    iv: ''
+  });
   const [encryptedData, setEncryptedData] = useState<string>();
 
   useEffect(() => {
@@ -30,7 +34,10 @@ const App: React.FC = () => {
       })
       .catch((error: ErrorWithMessage) => {
         console.error("Error generating secret key:", error.message);
-        setEncryptionResult(`Error generating secret key: ${error.message}`)
+        setEncryptionResult({
+          key: error.message,
+          iv: error.message
+        })
       });
 
     const dataToEncrypt = JSON.stringify(data);

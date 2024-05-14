@@ -76,7 +76,11 @@ repositories {
   google()
 }
 
-
+configurations {
+    all {
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15to18'
+    }
+}
 dependencies {
   // For < 0.71, this will be from the local maven repo
   // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin

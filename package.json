@@ -1,6 +1,6 @@
 {
   "name": "react-native-jsonwebtoken",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React Native component to verify the signature of a JWT string representation/token using public_key, generate a SecretKey, encrypt Data,...",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -31,7 +31,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
-    "prepare": "bob build",
+    "prepare": "npx bob build",
     "release": "release-it"
   },
   "keywords": [
@@ -68,7 +68,7 @@
     "prettier": "^3.0.3",
     "react": "18.2.0",
     "react-native": "0.74.1",
-    "react-native-builder-bob": "^0.20.0",
+    "react-native-builder-bob": "^0.20.4",
     "release-it": "^15.0.0",
     "turbo": "^1.10.7",
     "typescript": "^5.2.2"

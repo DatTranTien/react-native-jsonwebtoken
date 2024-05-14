@@ -1,5 +1,6 @@
 //@ts-ignore
 import { NativeModules, Platform } from 'react-native';
+import type { EncryptionResult } from '../example/type';
 
 const LINKING_ERROR =
   `The package 'react-native-jsonwebtoken' doesn't seem to be linked. Make sure: \n\n` +
