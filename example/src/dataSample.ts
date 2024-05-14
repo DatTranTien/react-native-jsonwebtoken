@@ -1,0 +1,7 @@
+export const data={
+    "productCode": "HELLO-WORLD",
+    "name": "dat_dev",
+    "deviceId": "7b44292a1ef2347e"
+  }
+  export const PUBLIC_KEY = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2DQJL2UI0W8WFKEc7NgD4jq/38NK3af4mol9SBYBEsi7ODwrzEw9VuE5cC49ZxQmwH4el4b/GZX0WvY+k2a59CjT5TnpHQ4psll3TPKpy9k2ttAUfgQEHzV6vWRSX/38+LgRqh1D90CrOpxOns/9lJ577MmZc12a+9/JLx0rLElriW/k7gJmESFEqJgNIiF5fmiTOhlyCJijQeWd+7gFC04BJAsyIQKg+EeAa0eifCrQSJRmH2J+RMkeA1qUpWmyByc67U6gwCNKyt2M2h34ZE70rnTNHdyrhCcdWtxaQJzzK6s0ncyebZX1aQ7AtUvD2yLn0+gf/Z6P0KjMJdnJ8wIDAQAB`;
+  export const TOKEN = `eyJhbGciOiJSUzI1NiIsImtpZCI6Im15a2V5aWQiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`;

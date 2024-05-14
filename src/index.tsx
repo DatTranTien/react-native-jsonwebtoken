@@ -1,3 +1,4 @@
+//@ts-ignore
 import { NativeModules, Platform } from 'react-native';
 
 const LINKING_ERROR =
@@ -17,6 +18,12 @@ const Jsonwebtoken = NativeModules.Jsonwebtoken
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return Jsonwebtoken.multiply(a, b);
+export function verifyToken(token: String, publicKeyPEM: String): Promise<boolean> {
+  return Jsonwebtoken.verifyToken(token, publicKeyPEM);
+}
+export function generateSecretKey(): Promise<EncryptionResult> {
+  return Jsonwebtoken.generateSecretKey();
+}
+export function encryptData(data: String, publicKeyPEM: String): Promise<string> {
+  return Jsonwebtoken.encryptData(data, publicKeyPEM);
 }
