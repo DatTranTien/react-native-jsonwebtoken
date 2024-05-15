@@ -23,9 +23,8 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64; 
 import org.json.JSONObject;
 import java.security.interfaces.RSAPublicKey;
-
-
-
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 
 @ReactModule(name = JsonwebtokenModule.NAME)
 public class JsonwebtokenModule extends ReactContextBaseJavaModule {
@@ -56,7 +55,10 @@ public class JsonwebtokenModule extends ReactContextBaseJavaModule {
         RSASSAVerifier verifier = new RSASSAVerifier(publicKey);
 
         if (jwsObject.verify(verifier)) {
-            promise.resolve(true);
+            WritableMap result = Arguments.createMap();
+                result.putBoolean("status", true);
+                result.putString("token", token);
+                promise.resolve(result);
         } else {
            promise.reject("TOKEN_INVALID", "Invalid token: Signature verification failed.");
         }
@@ -85,32 +87,32 @@ public class JsonwebtokenModule extends ReactContextBaseJavaModule {
         }
     }
 
-    @ReactMethod
+  @ReactMethod
     public void encryptData(String data, String publicKeyPEM, Promise promise) {
         try {
             RSAPublicKey publicKey = parsePublicKey(publicKeyPEM);
 
             // RSA Encryption of Secret Key
-            Cipher rsaCipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
-            rsaCipher.init(Cipher.ENCRYPT_MODE, publicKey);
-            WritableMap secretKeyMap = generateSecretKeySync(); // Synchronous internal call to generate secret key
+        Cipher rsaCipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
+        rsaCipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        WritableMap secretKeyMap = generateSecretKeySync(); // Synchronous internal call to generate secret key
             String secretKeyJSON = new JSONObject(secretKeyMap.toHashMap()).toString();
             byte[] encryptedKey = rsaCipher.doFinal(secretKeyJSON.getBytes("UTF-8"));
-            String encryptedKeyBase64 = Base64.getEncoder().encodeToString(encryptedKey);
+        String encryptedKeyBase64 = Base64.getEncoder().encodeToString(encryptedKey);
 
-            // AES Encryption of Data
+        // AES Encryption of Data
             String algorithm = "AES/CBC/PKCS5Padding";
-            SecretKeySpec keySpec = new SecretKeySpec(Base64.getDecoder().decode(secretKeyMap.getString("key")), "AES");
-            IvParameterSpec ivSpec = new IvParameterSpec(Base64.getDecoder().decode(secretKeyMap.getString("iv")));
-            Cipher aesCipher = Cipher.getInstance(algorithm);
-            aesCipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
-            byte[] encryptedData = aesCipher.doFinal(data.getBytes("UTF-8"));
-            String encryptedDataBase64 = Base64.getEncoder().encodeToString(encryptedData);
+        SecretKeySpec keySpec = new SecretKeySpec(Base64.getDecoder().decode(secretKeyMap.getString("key")), "AES");
+        IvParameterSpec ivSpec = new IvParameterSpec(Base64.getDecoder().decode(secretKeyMap.getString("iv")));
+        Cipher aesCipher = Cipher.getInstance(algorithm);
+        aesCipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
+        byte[] encryptedData = aesCipher.doFinal(data.getBytes("UTF-8"));
+        String encryptedDataBase64 = Base64.getEncoder().encodeToString(encryptedData);
 
             // Concatenate encrypted key and data
-            String result = encryptedKeyBase64 + "." + encryptedDataBase64;
+String result = encryptedKeyBase64 + "." + encryptedDataBase64;
             promise.resolve(result);
-        } catch (Exception e) {
+                } catch (Exception e) {
             promise.reject("ERROR", "Encryption failed: " + e.getMessage());
             e.printStackTrace();
         }

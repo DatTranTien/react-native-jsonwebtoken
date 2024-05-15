@@ -53,7 +53,7 @@ const encryptionResult = generateSecretKey()
       });
 
 //Encrypted Data
-
+const dataToEncrypt = JSON.stringify(data);
 const encryptedData = encryptData(dataToEncrypt, PUBLIC_KEY)
       .then((encrypted: string) => {
         console.log('Encrypted Data:', encrypted);
